@@ -95,3 +95,114 @@ ul.task-list {
     background: #e05656;
     color: #fff;
 }
+
+
+/* ---------------------------------------------------------------
+   Adauga acest bloc in index.css (nu inlocui restul stilurilor,
+   doar adauga aceste reguli noi la finalul fisierului).
+   Foloseste Fraunces (serif, pentru wordmark) + Inter (sans, restul).
+   ------------------------------------------------------------- */
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  --paper: #eef4ef;
+  --ink: #22262a;
+  --ink-soft: #5b6169;
+  --accent: #2f5d50;
+  --accent-soft: #e4ede8;
+  --line: #cfdcd2;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.app-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 2rem 2.5rem 1.5rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.app-header__brand {
+  display: flex;
+  align-items: baseline;
+  gap: 0.9rem;
+}
+
+.app-header__mark {
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  font-size: 1.9rem;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+
+.app-header__date {
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+  text-transform: capitalize;
+}
+
+.app-header__count {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  color: var(--accent);
+}
+
+.app-header__count-number {
+  font-family: 'Fraunces', serif;
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.app-header__count-label {
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+}
+
+/* Main content area (fostul .container, il pastram ca centru al paginii) */
+.container {
+  flex: 1;
+  max-width: 640px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 3rem;
+}
+
+/* Footer */
+.app-footer {
+  border-top: 1px solid var(--line);
+  padding: 1.25rem 2.5rem;
+  text-align: center;
+}
+
+.app-footer p {
+  margin: 0;
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+
+/* Butonul de adaugare, aliniat cu accentul verde-pin */
+.add-task button {
+  background: var(--accent);
+  border: none;
+  color: white;
+}
+
+.add-task button:hover {
+  background: #264d42;
+}
