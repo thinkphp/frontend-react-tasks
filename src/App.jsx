@@ -3,6 +3,13 @@ import TaskItem from './TaskItem.jsx';
 import './index.css';
 
 export default function App() {
+  // Local (npm run dev): VITE_API_URL lipseste din .env => API_URL = ''
+  //   => fetch('/api/tasks') merge prin proxy-ul din vite.config.js catre localhost:8000
+  // Productie (Vercel build): VITE_API_URL vine din Environment Variables (Vercel)
+  //   => fetch('https://backend-fastapi-postgres-render.onrender.com/api/tasks')
+ const API_URL = import.meta.env.VITE_API_URL || '';
+//    const API_URL = '';
+
   // In vanilla JS, lista traia direct in DOM (elementele <li> erau "sursa de adevar").
   // In React, lista traieste in state - JSX-ul e doar o "oglinda" a acestui state.
   const [tasks, setTasks] = useState([]);
@@ -11,7 +18,7 @@ export default function App() {
   // Echivalentul loadTasks() - se ruleaza o singura data, la montarea componentei
   // (in vanilla JS era apelat manual, la finalul scriptului)
   useEffect(() => {
-    fetch('/api/tasks')
+    fetch(`${API_URL}/api/tasks`)
       .then(res => res.json())
       .then(data => setTasks(data));
   }, []);
@@ -21,7 +28,7 @@ export default function App() {
     const text = newTaskText.trim();
     if (text === '') return;
 
-    const res = await fetch('/api/tasks', {
+    const res = await fetch(`${API_URL}/api/tasks`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ text })
@@ -36,7 +43,7 @@ export default function App() {
 
   // Echivalentul PUT din edit - actualizeaza task-ul pe server, apoi in state
   async function handleUpdateTask(id, newText) {
-    const res = await fetch(`/api/tasks/${id}`, {
+    const res = await fetch(`${API_URL}/api/tasks/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ text: newText })
@@ -51,7 +58,7 @@ export default function App() {
 
   // Echivalentul DELETE - sterge de pe server, apoi filtreaza din state
   async function handleDeleteTask(id) {
-    const res = await fetch(`/api/tasks/${id}`, { method: 'DELETE' });
+    const res = await fetch(`${API_URL}/api/tasks/${id}`, { method: 'DELETE' });
     if (res.ok) {
       setTasks(prev => prev.filter(t => t.id !== id));
     }
